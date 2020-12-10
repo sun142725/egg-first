@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试支付宝支付</title>
+    <script src="https://appx/web-view.min.js"></script>
+</head>
+<style>
+    #tradeno{
+        width: 100%;
+        height: 50px;
+        font-size: 36px;
+    }
+</style>
+<body>
+    <input type="text" id="tradeno">
+    <button id="paybtn">支付</button>
+    <div>1111111</div>
+</body>
+</html>
+<script>
+    window.onload = function(){
+        var tradeno = document.querySelector('#tradeno')
+        var paybtn = document.querySelector('#paybtn')
+        paybtn.onclick=function(){
+            my.tradePay({
+                tradeNO: tradeno.value,
+                success: (res) => {
+                    if(res.resultCode == '9000' || res.resultCode == '8000'){
+                            alert(JSON.stringify(res)+'支付成功')
+                        } else {
+                           alert(JSON.stringify(res)+'支付失败')
+                        }
+                        
+                },
+                fail: (res) => {
+                    
+                    alert(JSON.stringify(res)+'2')
+                }
+            })
+        }
+    }
+</script>
