@@ -1,6 +1,50 @@
 [
   {
     "type": "POST",
+    "url": "/api/bill/insert",
+    "title": "添加新账单",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "title",
+            "description": "<p>账单名称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "category",
+            "description": "<p>账单类别</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string|number",
+            "optional": false,
+            "field": "amount",
+            "description": "<p>账单金额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "mark",
+            "description": "<p>账单备注</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "app/controller/bill.js",
+    "group": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "groupTitle": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "name": "PostApiBillInsert"
+  },
+  {
+    "type": "POST",
     "url": "/api/bill/list",
     "title": "获取账单列表",
     "parameter": {
@@ -35,5 +79,35 @@
     "group": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
     "groupTitle": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
     "name": "PostApiBillList"
+  },
+  {
+    "type": "POST",
+    "url": "/api/bill/update",
+    "title": "修改账单信息",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string|number",
+            "optional": false,
+            "field": "title",
+            "description": "<p>账单名称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>账单id</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "app/controller/bill.js",
+    "group": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "groupTitle": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "name": "PostApiBillUpdate"
   }
 ]
