@@ -19,7 +19,7 @@ module.exports = appInfo => {
       domainWhiteList: [ 'http://master.saas.weimobqa.com' ], // 白名单
     },
     cors: {
-      origin: 'http://master.saas.weimobqa.com', // 如果不写origin则会按照白名单中的域名允许跨域， * 代表允许所有的域名进行跨域请求
+      origin: 'http://localhost:8000', // 如果不写origin则会按照白名单中的域名允许跨域， * 代表允许所有的域名进行跨域请求
       allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
       credentials: true
     },
