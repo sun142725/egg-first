@@ -1,6 +1,52 @@
 define({ "api": [
   {
     "type": "POST",
+    "url": "/api/bill/delete",
+    "title": "修改账单信息",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>账单id</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "app/controller/bill.js",
+    "group": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "groupTitle": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "name": "PostApiBillDelete"
+  },
+  {
+    "type": "POST",
+    "url": "/api/bill/info",
+    "title": "修改账单信息",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>账单id</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "app/controller/bill.js",
+    "group": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "groupTitle": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "name": "PostApiBillInfo"
+  },
+  {
+    "type": "POST",
     "url": "/api/bill/insert",
     "title": "添加新账单",
     "parameter": {
@@ -70,6 +116,20 @@ define({ "api": [
             "optional": true,
             "field": "title",
             "description": "<p>账单名称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string|number",
+            "optional": true,
+            "field": "type",
+            "description": "<p>账单类型</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "category",
+            "description": "<p>账单种类</p>"
           }
         ]
       }

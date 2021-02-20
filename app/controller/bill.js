@@ -1,6 +1,7 @@
 'use strict';
 // app/controller/bill.js
 const Controller = require('egg').Controller;
+const returnBody = require('../utils/com-return-err').returnBody
 
 class HomeController extends Controller {
     /**
@@ -8,18 +9,21 @@ class HomeController extends Controller {
      * @apiParam {string|number} pageNum 当前页
      * @apiParam {string|number} pageSize 分页大小
      * @apiParam {string} [title] 账单名称
+     * @apiParam {string|number} [type] 账单类型
+     * @apiParam {string} [category] 账单种类
      */
     async getBillList() {
         const { ctx } = this;
         console.log('查询sql', ctx.request.body)
         const query = ctx.request.body
         let obj = {
-            pageNum: query.pageNum,
-            pageSize: query.pageSize,
-            where: {
-
-            }
+            pageNum: query.pageNum || 1,
+            pageSize: query.pageSize || 15,
+            where: {}
         }
+        query.hasOwnProperty('title') && (obj.where['title'] = query.title)
+        query.hasOwnProperty('category') && (obj.where['category'] = query.category)
+        query.hasOwnProperty('type') && (obj.where['type'] = query.type)
         const result = await Promise.all([ctx.service.bill.findBillList(obj), ctx.service.bill.findBillCount(obj)]);
         ctx.body = {
             code: 0,
@@ -46,15 +50,8 @@ class HomeController extends Controller {
             amount: query.amount,
             mark: query.mark
         }
-        const result = ctx.service.bill.insertBill(obj)
-        ctx.body = result ? {
-            code: 0,
-            data: null,
-            message: "添加成功"
-        } : {
-            code: 500,
-            message: "异常信息"
-        }
+        const result = await ctx.service.bill.insertBill(obj)
+        ctx.body = result ? returnBody(0, "添加成功") : returnBody(200001)
     }
     /**
      * @api {POST} /api/bill/update 修改账单信息
@@ -63,6 +60,33 @@ class HomeController extends Controller {
      * @apiParam {string} [title] 账单名称
      */
     async update(){
+        const { ctx } = this;
+        const query = ctx.request.body
+        const obj = {
+            id: query.id,
+            title: query.title,
+            category: query.category,
+            amount: query.amount,
+            mark: query.mark
+        }
+        const result = await ctx.service.bill.updateBillInfo(obj)
+        ctx.body = result ? returnBody(0, '更新成功') : returnBody(500, '更新失败')
+    }
+    /**
+     * @api {POST} /api/bill/delete 修改账单信息
+     * @apiParam {number} id 账单id
+     */
+    async delete(){
+        const { ctx } = this;
+        const query = ctx.request.body
+        const result = await ctx.service.bill.delBillInfo({id: query.id})
+        ctx.body = result ? returnBody(0, '删除成功') : returnBody(200002)
+    }
+    /**
+     * @api {POST} /api/bill/info 修改账单信息
+     * @apiParam {number} id 账单id
+     */
+    async info(){
 
     }
 }

@@ -14,7 +14,11 @@ module.exports = app => {
   router.post('/getuser', controller.user.getUser);
   router.post('/login', controller.user.login);
 
+  // 账单
   router.post('/api/bill/list', controller.bill.getBillList);
+  // router.post('/api/bill/info', controller.bill.info);
   router.post('/api/bill/insert', controller.bill.insert);
+  router.post('/api/bill/update', controller.bill.update);
+  router.post('/api/bill/delete', controller.bill.delete);
 
 };
