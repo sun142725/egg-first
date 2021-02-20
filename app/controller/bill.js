@@ -21,9 +21,8 @@ class HomeController extends Controller {
             pageSize: query.pageSize || 15,
             where: {}
         }
-        query.hasOwnProperty('title') && (obj.where['title'] = query.title)
-        query.hasOwnProperty('category') && (obj.where['category'] = query.category)
-        query.hasOwnProperty('type') && (obj.where['type'] = query.type)
+        var paramKeys= ['title', 'category', 'type', 'startTime', 'endTime']
+        paramKeys.forEach((v)=>query.hasOwnProperty(v) && (obj.where[v] = query[v]))
         const result = await Promise.all([ctx.service.bill.findBillList(obj), ctx.service.bill.findBillCount(obj)]);
         ctx.body = {
             code: 0,
@@ -31,7 +30,7 @@ class HomeController extends Controller {
                 list: result[0],
                 total: result[1]
             },
-            message: ""
+            describe: "查询成功"
         }
     }
     /**
