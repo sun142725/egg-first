@@ -11,6 +11,13 @@ function return7000(){
         describe: ERROR_CODE['700000'],
     }
 }
+function returnSuccess(data, describe){
+    return {
+        code: 0,
+        data: data || null,
+        describe: describe || "success!",
+    }
+}
 /**
  * 
  * @param {*} res 
@@ -34,6 +41,7 @@ function returnNull(data, key, rule = null){
 }
 module.exports = {
     return7000,
+    returnSuccess,
     returnBody,
     returnNull
 }

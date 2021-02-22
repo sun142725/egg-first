@@ -40,5 +40,16 @@ class UserService extends Service{
         });
         return result.affectedRows === 1
     }
+    async statisticBill(param){
+        let sql = `select year(gmt_created) as year,
+        COUNT(*) as count,
+        SUM(amount) as totalAmount,
+        category
+        from bill_info
+        where year(gmt_created)=${param.year}
+        group by category, year(gmt_created)`
+        const result = await this.app.mysql.query(sql);
+        return result
+    }
 }
 module.exports = UserService;

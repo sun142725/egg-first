@@ -24,6 +24,16 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/api/bill/getBillStatic",
+    "title": "获取账单统计信息",
+    "version": "0.0.0",
+    "filename": "app/controller/bill.js",
+    "group": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "groupTitle": "C:\\Users\\jihon\\Desktop\\own\\egg-first\\app\\controller\\bill.js",
+    "name": "PostApiBillGetbillstatic"
+  },
+  {
+    "type": "POST",
     "url": "/api/bill/info",
     "title": "修改账单信息",
     "parameter": {

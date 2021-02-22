@@ -1,7 +1,7 @@
 'use strict';
 // app/controller/bill.js
 const Controller = require('egg').Controller;
-const returnBody = require('../utils/com-return-err').returnBody
+const { returnBody, returnSuccess } = require('../utils/com-return-err')
 
 class HomeController extends Controller {
     /**
@@ -87,6 +87,14 @@ class HomeController extends Controller {
      */
     async info(){
 
+    }
+    /**
+     * @api {POST} /api/bill/getBillStatic 获取账单统计信息
+     */
+    async getBillStatic(){
+        const { ctx } = this;
+        const result = await ctx.service.bill.statisticBill({year: '2021'})
+        ctx.body = returnSuccess(result)
     }
 }
 
