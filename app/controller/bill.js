@@ -93,7 +93,7 @@ class HomeController extends Controller {
      */
     async getBillStatic(){
         const { ctx } = this;
-        const result = await ctx.service.bill.statisticBill({year: '2021'})
+        const result = await ctx.service.bill.statisticBill({year: '2021', type: 1})
         ctx.body = returnSuccess(result)
     }
 }
