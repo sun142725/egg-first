@@ -38,7 +38,7 @@ module.exports = appInfo => {
       secret: 'tororo'
     },
     auth: {
-      jwtExclude: [],
+      jwtExclude: ['/', '/admin-web/'],
       errorCode: -2,
       output: 'apidoc/output',
       template: 'apidoc/template'
@@ -50,7 +50,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1605775383742_4061';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = ['customHistory'];
 
   // add your user config here
   const userConfig = {

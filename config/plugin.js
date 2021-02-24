@@ -19,7 +19,7 @@ module.exports = {
     package: 'egg-jwt'
   },
   auth: {
-    enable: true,
+    enable: false,
     package: 'egg-router-auth'
   }
 };

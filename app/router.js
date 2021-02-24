@@ -5,7 +5,7 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  router.get('/', app.jwt, controller.home.index);
+  router.get('/', controller.home.index);
   router.get('/get_alipay_auth', controller.alipay.getAuth);
   router.get('/alipay.html', controller.alipay.getTestView);
 
