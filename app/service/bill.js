@@ -42,23 +42,25 @@ class UserService extends Service{
     }
     async statisticBill(param){
         let sql = `select year(gmt_created) as year,
+        month(gmt_created) as month,
+        day(gmt_created) as day,
         COUNT(*) as count,
         SUM(amount) as totalAmount,
         category
         from bill_info
-        where year(gmt_created)=${param.year} AND type=${param.type}
-        group by category, year(gmt_created)`
+        where type=${param.type} AND gmt_created between '${param.startTime}' AND '${param.endTime}'
+        group by category, year(gmt_created), month(gmt_created), day(gmt_created)`
         const result = await this.app.mysql.query(sql);
         return result
     }
-    async statisticBillByMonth(param){
+    async statisticBillByCurrentMonth(param){
         let sql = `select year(gmt_created) as year,
         COUNT(*) as count,
         SUM(amount) as totalAmount,
         category
         from bill_info
-        where year(gmt_created)=${param.year} AND month(gmt_created)=${param.month} AND type=${param.type}
-        group by category, year(gmt_created)`
+        where type=${param.type} AND year(gmt_created)=${param.year} AND month(gmt_created)=${param.month}
+        group by category`
         const result = await this.app.mysql.query(sql);
         return result
     }

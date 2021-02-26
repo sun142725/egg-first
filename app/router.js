@@ -21,4 +21,5 @@ module.exports = app => {
   router.post('/api/bill/update', controller.bill.update);
   router.post('/api/bill/delete', controller.bill.delete);
   router.post('/api/bill/getBillStatic', controller.bill.getBillStatic);
+  router.post('/api/bill/calcBillByCurrentMonth', controller.bill.calcBillByCurrentMonth);
 };

@@ -89,12 +89,39 @@ class HomeController extends Controller {
 
     }
     /**
-     * @api {POST} /api/bill/getBillStatic 获取账单统计信息
+     * @api {POST} /api/bill/getBillStatic 获取近一段时间的账单统计
+     * @apiParam {number|string} type 账单类型
+     * @apiParam {string} startTime 开始时间
+     * @apiParam {string} endTime 结束时间
      */
     async getBillStatic(){
         const { ctx } = this;
-        const result = await ctx.service.bill.statisticBill({year: '2021', type: 1})
-        ctx.body = returnSuccess(result)
+        const query = ctx.request.body
+        const result = await ctx.service.bill.statisticBill({startTime: query.startTime, type: query.type, endTime: query.endTime})
+        ctx.body = returnSuccess(result.sort(function(a,b){return (a.month+a.day)-(b.month+b.day)}).map(val=>{
+            return {
+                date: `${val.year}-${val.month>9 ? val.month : '0'+val.month}-${val.day>9 ? val.day : '0'+val.day}`,
+                category: val.category,
+                amount: val.totalAmount
+            }
+        }))
+    }
+    /**
+     * @api {POST} /api/bill/statisticBillByCurrentMonth 获取近一段时间的账单统计
+     * @apiParam {number|string} type 账单类型
+     */
+    async calcBillByCurrentMonth(){
+        const { ctx } = this;
+        const query = ctx.request.body
+        let date = new Date()
+        const result = await ctx.service.bill.statisticBillByCurrentMonth({year: date.getFullYear(), type: query.type, month: date.getMonth()+1})
+        ctx.body = returnSuccess(result.map(val=>{
+            return {
+                count: val.count,
+                category: val.category,
+                amount: val.totalAmount
+            }
+        }))
     }
 }
 
