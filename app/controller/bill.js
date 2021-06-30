@@ -2,6 +2,7 @@
 // app/controller/bill.js
 const Controller = require('egg').Controller;
 const { returnBody, returnSuccess } = require('../utils/com-return-err')
+const { repair0 } = require('../utils/utils')
 
 class HomeController extends Controller {
     /**
@@ -47,7 +48,9 @@ class HomeController extends Controller {
             title: query.title,
             category: query.category,
             amount: query.amount,
-            mark: query.mark
+            type: query.type,
+            mark: query.mark,
+            gmt_created: query.gmt_created
         }
         const result = await ctx.service.bill.insertBill(obj)
         ctx.body = result ? returnBody(0, "添加成功") : returnBody(200001)
@@ -66,7 +69,9 @@ class HomeController extends Controller {
             title: query.title,
             category: query.category,
             amount: query.amount,
-            mark: query.mark
+            mark: query.mark,
+            type: query.type,
+            gmt_created: query.gmt_created
         }
         const result = await ctx.service.bill.updateBillInfo(obj)
         ctx.body = result ? returnBody(0, '更新成功') : returnBody(500, '更新失败')
@@ -98,9 +103,10 @@ class HomeController extends Controller {
         const { ctx } = this;
         const query = ctx.request.body
         const result = await ctx.service.bill.statisticBill({startTime: query.startTime, type: query.type, endTime: query.endTime})
+        const greaten30 = (new Date(query.endTime) - new Date(query.startTime)) > 30
         ctx.body = returnSuccess(result.sort(function(a,b){return (a.month+a.day)-(b.month+b.day)}).map(val=>{
             return {
-                date: `${val.year}-${val.month>9 ? val.month : '0'+val.month}-${val.day>9 ? val.day : '0'+val.day}`,
+                date: greaten30 ? `${val.year}-${repair0(val.month)}` : `${val.year}-${repair0(val.month)}-${repair0(val.day)}`,
                 category: val.category,
                 amount: val.totalAmount
             }
@@ -114,7 +120,7 @@ class HomeController extends Controller {
         const { ctx } = this;
         const query = ctx.request.body
         let date = new Date()
-        const result = await ctx.service.bill.statisticBillByCurrentMonth({year: date.getFullYear(), type: query.type, month: date.getMonth()+1})
+        const result = await ctx.service.bill.statisticBillByCurrentMonth({startTime: query.startTime, type: query.type, endTime: query.endTime})
         ctx.body = returnSuccess(result.map(val=>{
             return {
                 count: val.count,

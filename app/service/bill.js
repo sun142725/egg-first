@@ -59,7 +59,7 @@ class UserService extends Service{
         SUM(amount) as totalAmount,
         category
         from bill_info
-        where type=${param.type} AND year(gmt_created)=${param.year} AND month(gmt_created)=${param.month}
+        where type=${param.type} AND gmt_created between '${param.startTime}' AND '${param.endTime}'
         group by category`
         const result = await this.app.mysql.query(sql);
         return result

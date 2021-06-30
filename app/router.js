@@ -12,7 +12,7 @@ module.exports = app => {
 
   
   router.post('/getuser', controller.user.getUser);
-  router.post('/login', controller.user.login);
+  router.post('/api/user/login', controller.user.login);
 
   // 账单
   router.post('/api/bill/list', controller.bill.getBillList);

@@ -50,7 +50,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1605775383742_4061';
 
   // add your middleware config here
-  config.middleware = ['customHistory'];
+  config.middleware = ['customHistory', 'proxy'];
 
   // add your user config here
   const userConfig = {
